@@ -25,6 +25,7 @@ function formatPopupData(value){
 function mapLayers(basemap,featureLayer)
 {
   this.basemap=basemap;
+  
   this.featureLayer=featureLayer;
 }
 
