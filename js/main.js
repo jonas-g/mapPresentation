@@ -1,16 +1,17 @@
         
-function marker(latitude,longitude,popupData,style)
+function marker(latitude,longitude,popupData,style, rowIndex)
 {
   this.latitude=latitude;
   this.longitude=longitude;
-  this.popupData=popupData;
+  this.popupData= "<b>Reparation på radiomast</b><br/>" + popupData;
   this.style = style;
+  this.rowIndex=rowIndex;
 }
 
-var marker1 = new marker(59.96,17.62,"AO-no:1 Status: Påbörjad","yellow");
-var marker2 = new marker(59.75,17.75,"AO-no:2 Status: Ej påbörjad","red");
-var marker3 = new marker(59.75,17.39,"AO-no:3 Status: Klar","green");
-var marker4 = new marker(60.10,17.13,"AO-no:4 Status: Påbörjad","yellow");
+var marker1 = new marker(59.96,17.62,"AO-no:1 Status: Påbörjad","yellow",1);
+var marker2 = new marker(59.75,17.75,"AO-no:2 Status: Ej påbörjad","red",2);
+var marker3 = new marker(59.75,17.39,"AO-no:3 Status: Klar","green",3);
+var marker4 = new marker(60.10,17.13,"AO-no:4 Status: Påbörjad","yellow",4);
         
 var markers = [marker1,marker2,marker3,marker4];
         
@@ -48,19 +49,26 @@ var iconize = function (symbol, color, shape) {
 }
 
 var layer = L.esri.basemapLayer(mapData.esriBasemap).addTo(map);
-var markerGroup = L.featureGroup();
+var markerGroup = L.featureGroup().addTo(map).on("click",groupClick);
 
 var markerBounds = [];
 
+var mark, row
+
 markers.forEach(function (m) {
   //Parameters 
-  var mark = L.marker([m.latitude, m.longitude], {icon: iconize('glyphicon-wrench', m.style, 'square')}).addTo(markerGroup);
+  mark = L.marker([m.latitude, m.longitude], {icon: iconize('glyphicon-wrench', m.style, 'square')}).addTo(markerGroup);
   mark.bindPopup(m.popupData);
-  markerBounds.push([m.latitude, m.longitude])
+  mark.row = m.rowIndex;
+  markerBounds.push([m.latitude, m.longitude]);
 });
 
 //Flyttar View så man ser alla punkter i markers-lagret
 map.fitBounds(markerBounds);
+
+function groupClick(event) {
+  console.log("Clicked on marker " + event.layer.row);
+}
 
 //Clustering
 var clusterMarkers= L.markerClusterGroup();
