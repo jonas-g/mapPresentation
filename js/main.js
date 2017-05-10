@@ -46,13 +46,12 @@ function createIcon(symbol, color, shape)
 function createPopup(popupData,rowIndex){
   var popupString = formatPopupData(popupData);
   var popupHtml = $('<div class="marker-data-wrapper" />');
-  popupHtml.on('click','.popup-select-button',function(){
+  popupHtml.on('click','.marker-select-button',function(){
     selectedMarkerRowIndex= rowIndex;
-    //ta bort sen
+    //ta bort sen, bara för test
     console.log(selectedMarkerRowIndex)
   });
-
-  popupHtml.append($('<div class="marker-data-container>"'+popupString+'</div>'+ '<button class="marker-select-button">Välj</button>'));
+  popupHtml.append($('<div class="marker-data-container">'+popupString+'</div>'+ '<button class="marker-select-button">Välj</button>'));
   return popupHtml[0];
 }
 

@@ -13,16 +13,23 @@
 #basemaps {
     margin-bottom: 5px;
   }
+
+.marker-data-wrapper{
+  text-align: center;
+}
+.marker-data-container{
+  text-align: left;
+  font-size:15px;
+}
 .marker-select-button {
     background-color: #00B3F1;
     border: none;
     color: white;
-    padding: 8px 33% 8px 33%;
-    text-align: center;
+    padding: 8px 50px 8px 50px;
+    margin: 10px 0 0 0;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 10px 0 0 0;
     cursor: pointer;
     border-radius: 2px;
 }
