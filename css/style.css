@@ -13,8 +13,8 @@
 #basemaps {
     margin-bottom: 5px;
   }
-.popup-select-button {
-background-color: #00B3F1;
+.marker-select-button {
+    background-color: #00B3F1;
     border: none;
     color: white;
     padding: 8px 33% 8px 33%;

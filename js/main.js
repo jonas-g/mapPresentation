@@ -42,15 +42,17 @@ function createIcon(symbol, color, shape)
   return icon;
 }
 
+//Skapar custom markers
 function createPopup(popupData,rowIndex){
   var popupString = formatPopupData(popupData);
-  var popupHtml = $('<div class="marker-data-container" />');
+  var popupHtml = $('<div class="marker-data-wrapper" />');
   popupHtml.on('click','.popup-select-button',function(){
     selectedMarkerRowIndex= rowIndex;
     //ta bort sen
     console.log(selectedMarkerRowIndex)
   });
-  popupHtml.append($(popupString+ '<button class="popup-select-button">Välj</button>'));
+
+  popupHtml.append($('<div class="marker-data-container>"'+popupString+'</div>'+ '<button class="marker-select-button">Välj</button>'));
   return popupHtml[0];
 }
 
