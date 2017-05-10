@@ -13,3 +13,27 @@
 #basemaps {
     margin-bottom: 5px;
   }
+.popup-select-button {
+background-color: #00B3F1;
+    border: none;
+    color: white;
+    padding: 8px 33% 8px 33%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 0 0 0;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.leaflet-container a.leaflet-popup-close-button{
+font-size: 20px;
+text-align:center;
+padding:2px 0 17px 0;
+margin:8px;
+background-color: red;
+color:white;
+border-radius: 2px;
+
+}

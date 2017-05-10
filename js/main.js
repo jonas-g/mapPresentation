@@ -42,6 +42,18 @@ function createIcon(symbol, color, shape)
   return icon;
 }
 
+function createPopup(popupData,rowIndex){
+  var popupString = formatPopupData(popupData);
+  var popupHtml = $('<div class="marker-data-container" />');
+  popupHtml.on('click','.popup-select-button',function(){
+    selectedMarkerRowIndex= rowIndex;
+    //ta bort sen
+    console.log(selectedMarkerRowIndex)
+  });
+  popupHtml.append($(popupString+ '<button class="popup-select-button">Välj</button>'));
+  return popupHtml[0];
+}
+
 //Skapar fiktiv data
 var marker1 = new marker(59.96,17.62,'AO:1, Namn:Reparation av radiomast, Status:Påbörjad',"yellow","Novacura Gubbe","square",1);
 var marker2 = new marker(59.75,17.75,'AO:2, Namn:Kabelfel, Status:Ej påbörjad',"red","Novacura Gubbe","square",2);
@@ -71,15 +83,17 @@ locate.start();
 //Adderar baskarta till map
 var layer = L.tileLayer(mapData.basemap).addTo(map);
 //Skapar featuregroup och lägger till click-event
-var markerGroup = L.featureGroup().addTo(map).on('click',selectedMarker);
+var markerGroup = L.featureGroup().addTo(map);
 //Array för att zooma vyn till markörerna
 var markerBounds = [];
+//Variabel som håller vald markörs rowIndex
+var selectedMarkerRowIndex;
 
 //Skapar markörer
 markers.forEach(function (m) 
 {
   mark = L.marker([m.latitude, m.longitude], {icon: createIcon('glyphicon-wrench', m.color, m.shape)}).addTo(markerGroup);
-  mark.bindPopup(formatPopupData(m.popupData));
+  mark.bindPopup(createPopup(m.popupData,m.rowIndex));
   mark.row = m.rowIndex;
   markerBounds.push([m.latitude, m.longitude])
 });
@@ -88,14 +102,6 @@ markers.forEach(function (m)
 map.fitBounds(markerBounds);
 
 //Klustrering av markörerna
-var clusterMarkers= L.markerClusterGroup();
-clusterMarkers.addLayer(markerGroup);
-clusterMarkers.addTo(map);
-
-//Kod för att välja markörer
- function selectedMarker(event){
-    console.log(event.layer.row);
-}
-
-
-
+// var clusterMarkers= L.markerClusterGroup();
+// clusterMarkers.addLayer(markerGroup);
+// clusterMarkers.addTo(map);
