@@ -62,7 +62,7 @@ var marker3 = new marker(59.75,17.39,'AO:3, Namn:Död råtta, Status:Klar',"gree
 var marker4 = new marker(60.10,17.13,'AO:4, Namn:Födelsedagskalas, Status:Påbörjad',"yellow","Novacura Gubbe","square",4);
 
 //Skapar mapLayers objekt
-var mapData = new mapLayers("http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}","https://gisapp.msb.se/arcgis/rest/services/Raddningstjanst/Brandstationer/FeatureServer/0");
+var mapData = new mapLayers("http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'","https://gisapp.msb.se/arcgis/rest/services/Raddningstjanst/Brandstationer/FeatureServer/0");
 
 //Array med markers        
 var markers = [marker1,marker2,marker3,marker4];
@@ -81,8 +81,10 @@ var locate = L.control.locate({
 }).addTo(map);
 //Startar lokaliseringen vid appstart
 locate.start();
-//Adderar baskarta till map
-var layer = L.tileLayer(mapData.basemap).addTo(map);
+//Adderar baskarta till map och lägger till ESRI attribution
+var layer = L.tileLayer(mapData.basemap,{
+    attribution: 'Sources: Esri, HERE, DeLorme, Intermap, increment P Corp., GEBCO, USGS, FAO, NPS, NRCAN, GeoBase, IGN, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), swisstopo, MapmyIndia, © OpenStreetMap contributors, and the GIS User Community '
+}).addTo(map);
 //Skapar featuregroup och lägger till click-event
 var markerGroup = L.featureGroup().addTo(map);
 //Array för att zooma vyn till markörerna
